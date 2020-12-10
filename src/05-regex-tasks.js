@@ -32,7 +32,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-  throw new Error('Not implemented');
+  // throw new Error('Not implemented');
+  return new RegExp(/{[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}}/);
 }
 
 
@@ -54,7 +55,8 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-  throw new Error('Not implemented');
+  // throw new Error('Not implemented');
+  return new RegExp(/^(pi|s|re)/);
 }
 
 
@@ -78,8 +80,22 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(/* minLength */) {
-  throw new Error('Not implemented');
+function getPasswordValidator(minLength) {
+  // throw new Error('Not implemented');
+  // should contain at least one digit:
+  //   (?=.*\d)
+  // should contain at least one lower case:
+  //   (?=.*[a-z])
+  // should contain at least one upper case:
+  //   (?=.*[A-Z])
+  // ?! Specifies a group that can not match
+  // after the main expression
+  // (if it matches, the result is discarded):
+  //   (?!.*\s)
+  // should contain at least 8 from the mentioned characters:
+  //   [a-zA-Z\d]{8,}
+
+  return new RegExp(`(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)[a-zA-Z\\d]{${minLength},}`);
 }
 
 
